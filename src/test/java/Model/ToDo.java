@@ -1,6 +1,6 @@
 package Model;
 
-public class User {
+public class ToDo {
 
     private int userId;
     private int id;
