@@ -33,32 +33,32 @@ public class _08_GoRestCommentTest {
     // Soru : CreateComment testini yapınız.
 
     @Test
-    public void CreateComment(){
-        String fullName=randomUreteci.name().fullName();
-        String email=randomUreteci.internet().emailAddress();
-        String body=randomUreteci.lorem().paragraph();
-        String postID="122490";
+    public void CreateComment() {
+        String fullName = randomUreteci.name().fullName();
+        String email = randomUreteci.internet().emailAddress();
+        String body = randomUreteci.lorem().paragraph();
+        String postID = "122490";
 
-        Map<String,String>newComment=new HashMap<>();
-        newComment.put("name",fullName);
-        newComment.put("email",email);
-        newComment.put("body",body);
-        newComment.put("post_id",postID);
+        Map<String, String> newComment = new HashMap<>();
+        newComment.put("name", fullName);
+        newComment.put("email", email);
+        newComment.put("body", body);
+        newComment.put("post_id", postID);
 
-        commentID=
-        given()
-                .spec(reqSpec)
-                .body(newComment)
-
-
-                .when()
-                .post()
+        commentID =
+                given()
+                        .spec(reqSpec)
+                        .body(newComment)
 
 
-                .then()
-                .log().body()
-                .statusCode(201)
-                .extract().path("id");
+                        .when()
+                        .post()
+
+
+                        .then()
+                        .log().body()
+                        .statusCode(201)
+                        .extract().path("id");
 
         System.out.println("commentID = " + commentID);
     }
@@ -66,21 +66,44 @@ public class _08_GoRestCommentTest {
     // Soru : Create edilen Commenti GetCommentByID testi ile çağırarak id sinin kontrolünü yapınız.
 
     @Test(dependsOnMethods = "CreateComment")
-    public void GetCommentByID(){
+    public void GetCommentByID() {
 
         given()
                 .spec(reqSpec)
 
 
                 .when()
-                .get(""+commentID)
+                .get("" + commentID)
 
 
                 .then()
                 .statusCode(200)
-                .body("id",equalTo(commentID))
+                .body("id", equalTo(commentID))
+        ;
+    }
+
+    // Soru : Create edilen comment ın name ini güncelleyiniz.
+
+    @Test(dependsOnMethods = "GetCommentByID")
+    public void UpdateCommentName() {
+        Map<String, String> newName = new HashMap<>();
+        String updateName = "Meeer.t";
+        newName.put("name",updateName);
+
+        given()
+                .spec(reqSpec)
+                .body(newName)
 
 
-                ;
+                .when()
+                .put("" + commentID)
+
+
+                .then()
+                .log().body()
+                .body("name", equalTo(updateName))
+        ;
+
+
     }
 }
