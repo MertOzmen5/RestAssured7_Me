@@ -103,7 +103,43 @@ public class _08_GoRestCommentTest {
                 .log().body()
                 .body("name", equalTo(updateName))
         ;
+    }
+
+    // Soru : Oluşturduğunuz Comment ı DeleteComment testi ile siliniz.
+
+    @Test(dependsOnMethods = "UpdateCommentName")
+    public void DeleteComment(){
+
+        given()
+                .spec(reqSpec)
 
 
+                .when()
+                .delete("" + commentID)
+
+
+                .then()
+                .log().body()
+                .statusCode(204)
+                ;
+    }
+
+    // Soru : Sildiğiniz Comment ı tekrar silme yöntemi ile DeleteCommentNegative testi yapınız.
+
+    @Test(dependsOnMethods = "DeleteComment")
+    public void DeleteCommentNegative(){
+
+        given()
+                .spec(reqSpec)
+
+
+                .when()
+                .delete("" + commentID)
+
+
+                .then()
+                .log().body()
+                .statusCode(404)
+        ;
     }
 }
