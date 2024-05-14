@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>RestAssured7_Me</artifactId>
+    <artifactId>RestAssured7</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -29,6 +29,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!--        SLF4J yokedici-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -56,6 +57,7 @@
 
     </dependencies>
 
+
     <!--    Maven test çalıştırınca çalıştırılacak bölümün setlenmesi kısmı-->
 
     <!--  Jenkins in Çalıştırma komutunun , nereyi açlıştıracağını belirlediğimiz plugin -->
@@ -68,9 +70,13 @@
                 <version>3.0.0-M1</version>
                 <configuration>
 
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    <!--                    <suiteXmlFiles>-->
+                    <!--                        <suiteXmlFile>testng.xml</suiteXmlFile>-->
+                    <!--                    </suiteXmlFiles>-->
+
+                    <includes>
+                        <include>**/_06_CountryTest.java</include>  <!-- **/ projenin neresinde ise bul  -->
+                    </includes>
 
                 </configuration>
             </plugin>
